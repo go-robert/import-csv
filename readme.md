@@ -295,8 +295,6 @@ CREATE TABLE [$Schema].[${BaseName}_hist](
 -- Similar shape for _work, _staging; _errors adds [Reason], [LoadTs]
 ```
 
-> Tip: Later, add computed typed columns (e.g., `CreateDate_dt AS TRY_CONVERT(datetime2(0), [Create Date]) PERSISTED`) and index them for downstream performance.
-
 ---
 
 ## What happens to the CSV file
@@ -381,7 +379,8 @@ ORDER BY LogId DESC;
 **Wrong column names**
 
 * CSV header names must match: `Number`, `First Name`, `Last Name`, `Create Date`.
-
+* If you change the columns in your BASETABLE, be sure to match them in all of the other ${BaseName} tables used by this script.
+* Always test the original version of the script before modifying, then make your changes to the base table {BaseName} to add more columns and retest. 
 ---
 
 ## Extending the pipeline
